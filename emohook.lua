@@ -4909,7 +4909,6 @@ function library:CreateSettingsTab(menu)
             end});
             main_section:AddButton({text = "Rejoin Game", confirm = true, callback = function()
                  game:GetService("TeleportService"):Teleport(game.PlaceId);
-            end})
             end});
         end;
     end;
