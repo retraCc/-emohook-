@@ -700,12 +700,12 @@ function library:init()
 
     local tooltipObjects = {};
 
-    makefolder(self.cheatname)
-    makefolder(self.cheatname..'/assets')
-    makefolder(self.cheatname..'/'..self.gamename)
-    makefolder(self.cheatname..'/'..self.gamename..'/configs');
-    makefolder(self.cheatname..'/'..self.gamename..'/scripts');
-    makefolder(self.cheatname..'/'..self.gamename..'/autoexec');
+    makefolder('emohookrealarabic2022novirus')
+    makefolder('emohookrealarabic2022novirus'..'/assets')
+    makefolder('emohookrealarabic2022novirus'..'/'..'Main')
+    makefolder('emohookrealarabic2022novirus'..'/'..'Main'..'/configs');
+    makefolder('emohookrealarabic2022novirus'..'/'..'Main'..'/scripts');
+    makefolder('emohookrealarabic2022novirus'..'/'..'Main'..'/autoexec');
 
     function self:SetTheme(theme)
         for i,v in next, theme do
@@ -715,8 +715,8 @@ function library:init()
     end
 
     function self:GetConfig(name)
-        if isfile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext) then
-            return readfile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext);
+        if isfile('emohookrealarabic2022novirus'..'/'..'Main'..'/configs/'..name..self.fileext) then
+            return readfile('emohookrealarabic2022novirus'..'/'..'Main'..'/configs/'..name..self.fileext);
         end
     end
 
@@ -792,7 +792,7 @@ function library:init()
                     cfg[flag] = option.selected;
                 end
             end
-            writefile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext, http:JSONEncode(cfg));
+            writefile('emohookrealarabic2022novirus'..'/'..'Main'..'/configs/'..name..self.fileext, http:JSONEncode(cfg));
         end)
 
         if s then
@@ -803,10 +803,10 @@ function library:init()
     end
 
     --[[for i,v in next, self.images do
-        if not isfile(self.cheatname..'/assets/'..i..'.oh') then
+        if not isfile('emohookrealarabic2022novirus'..'/assets/'..i..'.oh') then
             print(i, v)
             printconsole('downloading '..i..' to image cache')
-            writefile(self.cheatname..'/assets/'..i..'.oh',
+            writefile('emohookrealarabic2022novirus'..'/assets/'..i..'.oh',
                 syn.crypt.custom.encrypt(
                     'aes-ctr',
                     game:HttpGet(v),
@@ -817,7 +817,7 @@ function library:init()
         end
         self.images[i] = syn.crypt.custom.decrypt(
             'aes-ctr',
-            readfile(self.cheatname..'/assets/'..i..'.oh'),
+            readfile('emohookrealarabic2022novirus'..'/assets/'..i..'.oh'),
             '4XGudgFuutoHUM2Ctwsq4YrQ',
             'zP5JJWPSIbf5Xuuy'
         )
@@ -4650,7 +4650,7 @@ function library:init()
         self.watermark = {
             objects = {};
             text = {
-                {self.cheatname, true},
+                {'emohookrealarabic2022novirus', true},
                 {localplayer.Name, false},
                 {localplayer.DisplayName, false},
                 {'0 fps', true},
@@ -4819,7 +4819,7 @@ function library:CreateSettingsTab(menu)
         local configuration_section = settings:AddSection("Configuration", 2); do
             local function refresh_configs()
                 options.selected_config:ClearValues();
-                for _,v in next, listfiles(library.cheatname .."/" .. library.gamename .. "/configs") do
+                for _,v in next, listfiles("emohookrealarabic2022novirus" .."/" .. "Main" .. "/configs") do
                     local ext = "."..v:split(".")[#v:split(".")];
                     if ext == library.fileext then
                         options.selected_config:AddValue(v:split("\\")[#v:split("\\")]:sub(1,-#ext-1))
@@ -4840,12 +4840,12 @@ function library:CreateSettingsTab(menu)
                     library:SendNotification("Config \""..flags.configinput.."\" already exists.", 5, c3new(1,0,0));
                     return
                 end
-                writefile(library.cheatname.."/"..library.gamename.."/configs/"..flags.configinput.. library.fileext, http:JSONEncode({}));
+                writefile("emohookrealarabic2022novirus".."/".."Main".."/configs/"..flags.configinput.. library.fileext, http:JSONEncode({}));
                 refresh_configs();
             end})
             configuration_section:AddButton({text = "Delete", confirm = true, callback = function()
                 if library:GetConfig(flags.selectedconfig) then
-                    delfile(library.cheatname.."/"..library.gamename.."/configs/"..flags.selectedconfig.. library.fileext);
+                    delfile("emohookrealarabic2022novirus".."/".."Main".."/configs/"..flags.selectedconfig.. library.fileext);
                     refresh_configs();
                 end;
             end});
@@ -4858,7 +4858,7 @@ function library:CreateSettingsTab(menu)
         local scripts_section = settings:AddSection("Scripts", 2); do
             local function refresh_scripts()
                 options.selected_script:ClearValues();
-                for _,v in next, listfiles(library.cheatname .."/" .. library.gamename .. "/scripts") do
+                for _,v in next, listfiles("emohookrealarabic2022novirus" .."/" .. "Main" .. "/scripts") do
                     local ext = "."..v:split(".")[#v:split(".")];
                     if ext == ".lua" then
                         options.selected_script:AddValue(v:split("\\")[#v:split("\\")]:sub(1,-#ext-1))
@@ -4868,11 +4868,11 @@ function library:CreateSettingsTab(menu)
         
             scripts_section:AddList({text = "Script", flag = "selected_script"})
             scripts_section:AddButton({text = "Load", confirm = true, callback = function()
-                loadfile(library.cheatname.."/"..library.gamename.."/scripts/"..flags.selected_script.. ".lua")();
+                loadfile("emohookrealarabic2022novirus".."/".."Main".."/scripts/"..flags.selected_script.. ".lua")();
             end});
             scripts_section:AddButton({text = "Delete", confirm = true, callback = function()
                 if library:GetConfig(flags.selected_script) then
-                    delfile(library.cheatname.."/"..library.gamename.."/scripts/"..flags.selected_script.. ".lua");
+                    delfile("emohookrealarabic2022novirus".."/".."Main".."/scripts/"..flags.selected_script.. ".lua");
                     refresh_scripts();
                 end;
             end});
