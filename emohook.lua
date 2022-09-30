@@ -63,10 +63,6 @@ local library = {
     open = false;
     opening = false;
     hasInit = false;
-    cheatname = startupArgs.cheatname or 'octohook';
-    gamename = startupArgs.gamename or 'universal';
-    fileext = startupArgs.fileext or '.txt';
-    domain = startupArgs.domain or '.rip';
 }
 
 
@@ -4912,14 +4908,8 @@ function library:CreateSettingsTab(menu)
                 setclipboard(([[game:GetService("TeleportService"):TeleportToPlaceInstance(%s, "%s")]]):format(game.PlaceId, game.JobId));
             end});
             main_section:AddButton({text = "Rejoin Game", confirm = true, callback = function()
-                game:GetService("TeleportService"):Teleport(game.PlaceId);
+                 game:GetService("TeleportService"):Teleport(game.PlaceId);
             end})
-
-            main_section:AddBox({text = "Cheat Name", flag = "cheat_name", input = library.cheatname, callback = function(txt)
-                library.change_name(txt, flags.cheat_domain);
-            end});
-            main_section:AddBox({text = "Cheat Domain", flag = "cheat_domain", input = library.domain, callback = function(txt)
-                library.change_name(flags.cheat_name, txt);
             end});
         end;
     end;
