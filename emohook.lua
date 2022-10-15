@@ -158,6 +158,7 @@ library.themes = {
             ["Border 1"]                  = fromrgb(60,60,60);
             ["Border 2"]                  = fromrgb(18,18,18);
             ["Border 3"]                  = fromrgb(10,10,10);
+	    ["Border Main"]               = fromrgb(0, 247, 255);
             ["Primary Text"]              = fromrgb(255,255,255);
             ["Group Background"]          = fromrgb(18,18,18);
             ["Selected Tab Background"]   = fromrgb(18,18,18);
@@ -1365,7 +1366,7 @@ function library:init()
             objs.outerBorder1 = utility:Draw('Square', {
                 Size = newUDim2(1,2,1,2);
                 Position = newUDim2(0,-1,0,-1);
-                ThemeColor = 'Border 1';
+                ThemeColor = 'Border Main';
                 ZIndex = z-4;
                 Parent = objs.midBorder;
             })
