@@ -1388,7 +1388,7 @@ function library:init()
             objs.title = utility:Draw('Text', {
                 Position = newUDim2(0,7,0,2);
                 Color = Color3.fromHex('#ffffff');
-                Text = library.cheatname;
+                Text = 'Rude.Club - retraC - ('.. game.Players.LocalPlayer.UserId ..')';
                 Font = 2;
                 Size = 13;
                 ZIndex = z+1;
