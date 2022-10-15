@@ -4887,37 +4887,12 @@ function library:CreateSettingsTab(menu)
             main_section:AddBind({text = "Open / Close", flag = "togglebind", nomouse = true, noindicator = true, bind = Enum.KeyCode.End, callback = function()
                 library:SetOpen(not library.open)
             end});
-            main_section:AddButton({text = "Join Discord",  callback = function()
-                local res = syn.request({
-                    Url = "http://127.0.0.1:6463/rpc?v=1",
-                    Method = "POST",
-                    Headers = {
-                        ["Content-Type"] = "application/json",
-                        Origin = "https://discord.com"
-                    },
-                    Body = game:GetService("HttpService"):JSONEncode({
-                        cmd = "INVITE_BROWSER",
-                        nonce = game:GetService("HttpService"):GenerateGUID(false),
-                        args = {code = "octohook"};
-                    });
-                });
-                if res.Success then
-                    library:SendNotification("DISCORD PROMPT | Sent Invite Prompt" , 3);
-                end;
-            end});
             main_section:AddButton({text = "Copy Server Connect Script", callback = function()
                 setclipboard(([[game:GetService("TeleportService"):TeleportToPlaceInstance(%s, "%s")]]):format(game.PlaceId, game.JobId));
             end});
             main_section:AddButton({text = "Rejoin Game", confirm = true, callback = function()
                 game:GetService("TeleportService"):Teleport(game.PlaceId);
             end})
-
-            main_section:AddBox({text = "Cheat Name", flag = "cheat_name", input = library.cheatname, callback = function(txt)
-                library.change_name(txt, flags.cheat_domain);
-            end});
-            main_section:AddBox({text = "Cheat Domain", flag = "cheat_domain", input = library.domain, callback = function(txt)
-                library.change_name(flags.cheat_name, txt);
-            end});
         end;
     end;
 
