@@ -63,10 +63,10 @@ local library = {
     open = false;
     opening = false;
     hasInit = false;
-    cheatname = startupArgs.cheatname or 'saturn';
+    cheatname = startupArgs.cheatname or 'octohook';
     gamename = startupArgs.gamename or 'universal';
     fileext = startupArgs.fileext or '.txt';
-    domain = startupArgs.domain or '.space';
+    domain = startupArgs.domain or '.rip';
 }
 
 
@@ -158,7 +158,6 @@ library.themes = {
             ["Border 1"]                  = fromrgb(60,60,60);
             ["Border 2"]                  = fromrgb(18,18,18);
             ["Border 3"]                  = fromrgb(10,10,10);
-	    ["Border Main"]               = fromrgb(0, 247, 255);
             ["Primary Text"]              = fromrgb(255,255,255);
             ["Group Background"]          = fromrgb(18,18,18);
             ["Selected Tab Background"]   = fromrgb(18,18,18);
@@ -1366,7 +1365,7 @@ function library:init()
             objs.outerBorder1 = utility:Draw('Square', {
                 Size = newUDim2(1,2,1,2);
                 Position = newUDim2(0,-1,0,-1);
-                ThemeColor = 'Border Main';
+                ThemeColor = 'Border 1';
                 ZIndex = z-4;
                 Parent = objs.midBorder;
             })
@@ -1389,7 +1388,7 @@ function library:init()
             objs.title = utility:Draw('Text', {
                 Position = newUDim2(0,7,0,2);
                 Color = Color3.fromHex('#ffffff');
-                Text = 'Rude.Club - retraC - ('.. game.Players.LocalPlayer.UserId ..')';
+                Text = 'IONHUB - CRACKED BY liam#4567 | OCTOHOOK.XYZ ON TOP';
                 Font = 2;
                 Size = 13;
                 ZIndex = z+1;
@@ -2278,7 +2277,7 @@ function library:init()
                         })
 
                         objs.text = utility:Draw('Text', {
-                            Position = newUDim2(0,19,0,0);
+                            Position = newUDim2(0,19,0,1);
                             ThemeColor = 'Option Text 3';
                             Size = 13;
                             Font = 2;
@@ -2339,7 +2338,7 @@ function library:init()
                             if option.enabled then
                                 if option.class == 'color' or option.class == 'bind' then
                                     option.objects.holder.Position = newUDim2(1,-option.objects.holder.Object.Size.X-x,0,0);
-                                    x = x + option.objects.holder.Object.Size.X + 18;
+                                    x = x + option.objects.holder.Object.Size.X;
                                 elseif option.class == 'slider' or option.class == 'list' then
                                     option.objects.holder.Position = newUDim2(0,0,1,-option.objects.holder.Object.Size.Y-y);
                                     y = y + option.objects.holder.Object.Size.Y;
@@ -2361,7 +2360,7 @@ function library:init()
                             tooltip = '';
                             order = #self.options+1;
                             callback = function() end;
-                            color = Color3.new(1,.995,.995);
+                            color = Color3.new(1,1,1);
                             trans = 0;
                             open = false;
                             enabled = true;
@@ -2395,8 +2394,8 @@ function library:init()
                             })
     
                             objs.background = utility:Draw('Square', {
-                                Size = newUDim2(0,-35,0,10);
-                                Position = newUDim2(0,19,0,3);
+                                Size = newUDim2(0,15,0,8);
+                                Position = newUDim2(0,4,0,5);
                                 ZIndex = z+3;
                                 Parent = objs.holder;
                             })
@@ -2409,15 +2408,15 @@ function library:init()
                             })
     
                             objs.border1 = utility:Draw('Square', {
-                                Size = newUDim2(1,-2,1,2);
-                                Position = newUDim2(0,1,0,-1);
+                                Size = newUDim2(1,2,1,2);
+                                Position = newUDim2(0,-1,0,-1);
                                 ThemeColor = 'Option Border 1';
                                 ZIndex = z+2;
                                 Parent = objs.background;
                             })
     
                             objs.border2 = utility:Draw('Square', {
-                                Size = newUDim2(0,0,0,0);
+                                Size = newUDim2(1,2,1,2);
                                 Position = newUDim2(0,-1,0,-1);
                                 ThemeColor = 'Option Border 2';
                                 ZIndex = z+1;
@@ -4888,12 +4887,37 @@ function library:CreateSettingsTab(menu)
             main_section:AddBind({text = "Open / Close", flag = "togglebind", nomouse = true, noindicator = true, bind = Enum.KeyCode.End, callback = function()
                 library:SetOpen(not library.open)
             end});
+            main_section:AddButton({text = "Join Discord",  callback = function()
+                local res = syn.request({
+                    Url = "http://127.0.0.1:6463/rpc?v=1",
+                    Method = "POST",
+                    Headers = {
+                        ["Content-Type"] = "application/json",
+                        Origin = "https://discord.com"
+                    },
+                    Body = game:GetService("HttpService"):JSONEncode({
+                        cmd = "INVITE_BROWSER",
+                        nonce = game:GetService("HttpService"):GenerateGUID(false),
+                        args = {code = "octohook"};
+                    });
+                });
+                if res.Success then
+                    library:SendNotification("DISCORD PROMPT | Sent Invite Prompt" , 3);
+                end;
+            end});
             main_section:AddButton({text = "Copy Server Connect Script", callback = function()
                 setclipboard(([[game:GetService("TeleportService"):TeleportToPlaceInstance(%s, "%s")]]):format(game.PlaceId, game.JobId));
             end});
             main_section:AddButton({text = "Rejoin Game", confirm = true, callback = function()
                 game:GetService("TeleportService"):Teleport(game.PlaceId);
             end})
+
+            main_section:AddBox({text = "Cheat Name", flag = "cheat_name", input = library.cheatname, callback = function(txt)
+                library.change_name(txt, flags.cheat_domain);
+            end});
+            main_section:AddBox({text = "Cheat Domain", flag = "cheat_domain", input = library.domain, callback = function(txt)
+                library.change_name(flags.cheat_name, txt);
+            end});
         end;
     end;
 
