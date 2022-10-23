@@ -2160,7 +2160,7 @@ do
 
     local WatermarkOuter = Library:Create('Frame', {
         BorderColor3 = Color3.new(0, 0, 0);
-        Position = UDim2.new(0, 1500, 0, -25);
+        Position = UDim2.new(0, 1100, 0, -25);
         Size = UDim2.new(0, 213, 0, 20);
         ZIndex = 200;
         Visible = false;
@@ -2573,7 +2573,7 @@ function Library:CreateWindow(...)
 
         local LeftSide = Library:Create('Frame', {
             BackgroundTransparency = 1;
-            Position = UDim2.new(0, 8, 0, 8);
+            Position = UDim2.new(0, 15, 0, 8);
             Size = UDim2.new(0.5, -12, 0, 507);
             ZIndex = 2;
             Parent = TabFrame;
