@@ -2160,7 +2160,7 @@ do
 
     local WatermarkOuter = Library:Create('Frame', {
         BorderColor3 = Color3.new(0, 0, 0);
-        Position = UDim2.new(0, 1100, 0, -25);
+        Position = UDim2.new(0, 950, 0, -25);
         Size = UDim2.new(0, 213, 0, 20);
         ZIndex = 200;
         Visible = false;
@@ -2409,7 +2409,7 @@ function Library:CreateWindow(...)
     if type(Config.Title) ~= 'string' then Config.Title = 'No title' end
     
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
-    if typeof(Config.Size) ~= 'UDim2' then Config.Size = UDim2.fromOffset(540, 600) end
+    if typeof(Config.Size) ~= 'UDim2' then Config.Size = UDim2.fromOffset(550, 600) end
 
     if Config.Center then
         Config.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -2573,7 +2573,7 @@ function Library:CreateWindow(...)
 
         local LeftSide = Library:Create('Frame', {
             BackgroundTransparency = 1;
-            Position = UDim2.new(0, 15, 0, 8);
+            Position = UDim2.new(0, 8, 0, 8);
             Size = UDim2.new(0.5, -12, 0, 507);
             ZIndex = 2;
             Parent = TabFrame;
