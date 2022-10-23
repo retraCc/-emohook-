@@ -1,6 +1,6 @@
 local httpService = game:GetService('HttpService')
 local ThemeManager = {} do
-	ThemeManager.Folder = 'ThemeSettings'
+	ThemeManager.Folder = 'LinoriaLibSettings'
 	-- if not isfolder(ThemeManager.Folder) then makefolder(ThemeManager.Folder) end
 
 	ThemeManager.Library = nil
@@ -76,17 +76,6 @@ local ThemeManager = {} do
 	end
 
 	function ThemeManager:CreateThemeManager(groupbox)
-		groupbox:AddDropdown('ThemeManager_ThemeList', { Text = 'Theme', Values = ThemesArray, Default = 1 })
-
-		groupbox:AddButton('Set as default', function()
-			self:SaveDefault(Options.ThemeManager_ThemeList.Value)
-			self.Library:Notify(string.format('Set default theme to %q', Options.ThemeManager_ThemeList.Value))
-		end)
-
-		Options.ThemeManager_ThemeList:OnChanged(function()
-			self:ApplyTheme(Options.ThemeManager_ThemeList.Value)
-		end)
-		
 		groupbox:AddLabel('Background color'):AddColorPicker('BackgroundColor', { Default = self.Library.BackgroundColor });
 		groupbox:AddLabel('Main color')	:AddColorPicker('MainColor', { Default = self.Library.MainColor });
 		groupbox:AddLabel('Accent color'):AddColorPicker('AccentColor', { Default = self.Library.AccentColor });
@@ -99,7 +88,46 @@ local ThemeManager = {} do
 		end
 
 		table.sort(ThemesArray, function(a, b) return self.BuiltInThemes[a][1] < self.BuiltInThemes[b][1] end)
-		
+
+		groupbox:AddDropdown('ThemeManager_ThemeList', { Text = 'Theme list', Values = ThemesArray, Default = 1 })
+
+		groupbox:AddButton('Set as default', function()
+			self:SaveDefault(Options.ThemeManager_ThemeList.Value)
+			self.Library:Notify(string.format('Set default theme to %q', Options.ThemeManager_ThemeList.Value))
+		end)
+
+		Options.ThemeManager_ThemeList:OnChanged(function()
+			self:ApplyTheme(Options.ThemeManager_ThemeList.Value)
+		end)
+
+		groupbox:AddDropdown('ThemeManager_CustomThemeList', { Text = 'Custom themes', Values = self:ReloadCustomThemes(), AllowNull = true, Default = 1 })
+		groupbox:AddInput('ThemeManager_CustomThemeName', { Text = 'Custom theme name' })
+
+		groupbox:AddButton('Load custom theme', function() 
+			self:ApplyTheme(Options.ThemeManager_CustomThemeList.Value) 
+		end)
+
+		groupbox:AddButton('Save custom theme', function() 
+			self:SaveCustomTheme(Options.ThemeManager_CustomThemeName.Value)
+
+			Options.ThemeManager_CustomThemeList.Values = self:ReloadCustomThemes()
+			Options.ThemeManager_CustomThemeList:SetValues()
+			Options.ThemeManager_CustomThemeList:SetValue(nil)
+		end)
+
+		groupbox:AddButton('Refresh list', function()
+			Options.ThemeManager_CustomThemeList.Values = self:ReloadCustomThemes()
+			Options.ThemeManager_CustomThemeList:SetValues()
+			Options.ThemeManager_CustomThemeList:SetValue(nil)
+		end)
+
+		groupbox:AddButton('Set as default', function()
+			if Options.ThemeManager_CustomThemeList.Value ~= nil and Options.ThemeManager_CustomThemeList.Value ~= '' then
+				self:SaveDefault(Options.ThemeManager_CustomThemeList.Value)
+				self.Library:Notify(string.format('Set default theme to %q', Options.ThemeManager_CustomThemeList.Value))
+			end
+		end)
+
 		ThemeManager:LoadDefault()
 
 		local function UpdateTheme()
