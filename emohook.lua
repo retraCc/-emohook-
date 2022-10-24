@@ -1637,13 +1637,15 @@ do
 
         function Slider:Display()
             local Suffix = Info.Suffix or '';
-            DisplayLabel.Text = string.format('%s/%s', Slider.Value .. Suffix, Slider.Max .. Suffix);
+            if Info.Compact then
+            DisplayLabel.Text = string.format('%s/%s', Slider.Value .. Suffix, Slider.Max);
 
             local X = math.ceil(Library:MapValue(Slider.Value, Slider.Min, Slider.Max, 0, Slider.MaxSize));
             Fill.Size = UDim2.new(0, X, 1, 0);
 
             HideBorderRight.Visible = not (X == Slider.MaxSize or X == 0);
-        end;
+        end    
+    end;
 
         function Slider:OnChanged(Func)
             Slider.Changed = Func;
