@@ -1638,8 +1638,7 @@ do
         function Slider:Display()
             local Suffix = Info.Suffix or '';
 
-            if Info.Compact then
-                DisplayLabel.Text = Info.Text .. ': ' .. Slider.Value .. Suffix
+            if Info.Compact then continue end
             elseif Info.HideMax then
                 DisplayLabel.Text = string.format('%s', Slider.Value .. Suffix)
             else
