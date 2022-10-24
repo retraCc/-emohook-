@@ -2540,7 +2540,7 @@ function Library:CreateWindow(...)
             Position = UDim2.new(0, 0, 0, 0);
             Size = UDim2.new(1, 0, 1, -1);
             Text = Name;
-            TextSize = 13;
+            TextSize = 13.25;
             ZIndex = 1;
             Parent = TabButton;
         });
