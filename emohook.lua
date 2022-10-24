@@ -1551,7 +1551,7 @@ do
         if not Info.Compact then
             Library:CreateLabel({
                 Size = UDim2.new(1, 0, 0, 10);
-                TextSize = 10;
+                TextSize = 12;
                 Text = Info.Text;
                 TextXAlignment = Enum.TextXAlignment.Left;
                 TextYAlignment = Enum.TextYAlignment.Bottom;
@@ -1564,7 +1564,7 @@ do
 
         local SliderOuter = Library:Create('Frame', {
             BorderColor3 = Color3.new(0, 0, 0);
-            Size = UDim2.new(1, -4, 0, 9);
+            Size = UDim2.new(1, -4, 0, 11);
             ZIndex = 5;
             Parent = Container;
         });
@@ -1615,7 +1615,7 @@ do
 
         local DisplayLabel = Library:CreateLabel({
             Size = UDim2.new(1, 0, 1, 0);
-            TextSize = 10;
+            TextSize = 12;
             Text = 'Infinite';
             ZIndex = 9;
             Parent = SliderInner;
