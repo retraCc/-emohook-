@@ -2524,6 +2524,7 @@ function Library:CreateWindow(...)
         local TabButtonWidth = Library:GetTextBounds(Name, Enum.Font.Code, 16);
 
         local TabButton = Library:Create('Frame', {
+            Position = UDim2.new(0, 0, 0, 15);
             BackgroundColor3 = Library.BackgroundColor;
             BorderColor3 = Library.OutlineColor;
             Size = UDim2.new(0, TabButtonWidth + 8 + 4, 1, 0);
@@ -2677,9 +2678,10 @@ function Library:CreateWindow(...)
             });
 
             Library:Create('UIListLayout', {
-                FillDirection = Enum.FillDirection.Vertical;
+                FillDirection = Enum.FillDirection.Horizontal;
+                HorizontalAlignment = Enum.HorizontalAlignment.Left;
                 SortOrder = Enum.SortOrder.LayoutOrder;
-                Parent = Container;
+                Parent = TabboxButtons;
             });
 
             function Groupbox:Resize()
