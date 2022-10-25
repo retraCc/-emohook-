@@ -2579,7 +2579,7 @@ function Library:CreateWindow(...)
 
         local RightSide = Library:Create('Frame', {
             BackgroundTransparency = 1;
-            Position = UDim2.new(0.5, 4, 0, 8);
+            Position = UDim2.new(0.5, 15, 0, 8);
             Size = UDim2.new(0.5, -12, 0, 507);
             ZIndex = 2;
             Parent = TabFrame;
