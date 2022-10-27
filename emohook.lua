@@ -1443,10 +1443,10 @@ do
             BackgroundTransparency = 1;
 	    ImageTransparency = 0;
             Image = 'http://www.roblox.com/asset/?id=11395079406';
-	    Position = ToggleInner.Position;
-	    Size = ToggleInner.Size;
+	    Position = ToggleOuter.Position;
+	    Size = ToggleOuter.Size;
             ZIndex = 6;
-            Parent = ToggleInner;
+            Parent = ToggleOuter;
         });
 
         Library:AddToRegistry(ToggleInner, {
