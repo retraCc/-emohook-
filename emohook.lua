@@ -1440,7 +1440,7 @@ do
         });
         
         local ToggleGradient = Library:Create('ImageLabel', {
-            BackgroundTransparency = 1;
+            BackgroundTransparency = 0;
 	    ImageTransparency = 0;
             Image = 'http://www.roblox.com/asset/?id=11395079406';
 	    Position = ToggleInner.Position;
