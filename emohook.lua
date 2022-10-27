@@ -1447,7 +1447,7 @@ do
             Rotation = -90;
             Transparency = NumberSequence.new({
 	        NumberSequenceKeypoint.new(0, 0),
-	        NumberSequenceKeypoint.new(1, 0.25)
+	        NumberSequenceKeypoint.new(1, 0.125)
         });
             Parent = ToggleInner;
         });
