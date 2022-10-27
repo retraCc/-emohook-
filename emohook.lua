@@ -1439,16 +1439,11 @@ do
             Parent = ToggleOuter;
         });
         
-        local ToggleGradient = Library:Create('UIGradient', {
-            Color = ColorSequence.new({
-                ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
-                ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))
-            });
-            Rotation = -90;
-            Transparency = NumberSequence.new({
-	        NumberSequenceKeypoint.new(0, 0),
-	        NumberSequenceKeypoint.new(1, 0.05)
-        });
+        local ToggleGradient = Library:Create('ImageLabel', {
+            BackgroundTransparency = 1;
+	    ImageTransparency = 0.5;
+            Image = 'http://www.roblox.com/asset/?id=11395079406';
+            ZIndex = 6;
             Parent = ToggleInner;
         });
 
