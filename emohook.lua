@@ -1445,6 +1445,7 @@ do
                 ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0))
             });
             Rotation = -90;
+            Transparency = 0.5;
             Parent = ToggleInner;
         });
 
