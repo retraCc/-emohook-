@@ -1441,8 +1441,8 @@ do
         
         local ToggleGradient = Library:Create('UIGradient', {
             Color = ColorSequence.new({
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 102)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(256, 241, 103))
+                ColorSequenceKeypoint.new(0, Color3.new(0, 1, 0)),
+                ColorSequenceKeypoint.new(1, Color3.new(0, 0.3, 0))
             });
             Rotation = 90;
             Parent = ToggleInner;
