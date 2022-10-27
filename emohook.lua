@@ -1441,8 +1441,10 @@ do
         
         local ToggleGradient = Library:Create('ImageLabel', {
             BackgroundTransparency = 1;
-	    ImageTransparency = 0.5;
+	    ImageTransparency = 0;
             Image = 'http://www.roblox.com/asset/?id=11395079406';
+	    Position = ToggleInner.Position;
+	    Size = ToggleInner.Size;
             ZIndex = 6;
             Parent = ToggleInner;
         });
