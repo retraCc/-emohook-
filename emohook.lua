@@ -1438,6 +1438,15 @@ do
             ZIndex = 6;
             Parent = ToggleOuter;
         });
+        
+        local ToggleGradient = Library:Create('UIGradient', {
+            Color = ColorSequence.new({
+                ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(212, 212, 212))
+            });
+            Rotation = 90;
+            Parent = ToggleInner;
+        });
 
         Library:AddToRegistry(ToggleInner, {
             BackgroundColor3 = 'MainColor';
