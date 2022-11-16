@@ -52,7 +52,7 @@ end
 -- // Main \\ --
 local ESP; ESP = {
     Settings = {
-        Enabled = true,
+        Enabled = false,
         Bold_Text = false,
         Objects_Enabled = false,
         Team_Check = false,
