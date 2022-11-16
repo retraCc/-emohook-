@@ -50,6 +50,31 @@ local Framework = {}; Framework.__index = Framework; do
 end
 
 -- // Main \\ --
+local ESPlib; ESPlib = {
+    Settings = {
+        Enabled = true,
+        Bold_Text = false,
+        Objects_Enabled = false,
+        Team_Check = false,
+        Improved_Visible_Check = false,
+        Maximal_Distance = 1000,
+        Object_Maximal_Distance = 1000,
+        Highlight = {Enabled = false, Color = Color3.new(1, 0, 0), Target = ""},
+        Box = {Enabled = false, Color = Color3.fromRGB(139, 0, 214), Transparency = 0},
+        BoxFill = {Enabled = false, Color = Color3.fromRGB(165, 3, 252), Transparency = 0.85},
+        Box_Outline = {Enabled = true, Color = Color3.new(0, 0, 0), Transparency = 0, Outline_Size = 1},
+        Healthbar = {Enabled = false, Position = "Left", Color3.new(1, 1, 1), Color_Lerp = Color3.fromRGB(40, 252, 3)},
+        Name = {Enabled = false, Position = "Top", Color = Color3.new(1, 1, 1), Transparency = 0, OutlineColor = Color3.new(0, 0, 0)},
+        Distance = {Enabled = false, Position = "Bottom", Color = Color3.new(1, 1, 1), Transparency = 0, OutlineColor = Color3.new(0, 0, 0)},
+        Tool = {Enabled = false, Position = "Bottom", Color = Color3.new(1, 1, 1), Transparency = 0, OutlineColor = Color3.new(0, 0, 0)},
+        Health = {Enabled = false, Position = "Left", Transparency = 0, OutlineColor = Color3.new(0, 0, 0)},
+        Chams = {Enabled = false, Color = Color3.fromRGB(123, 0, 189), Mode = "AlwaysOnTop", OutlineColor = Color3.fromRGB(123, 0, 189), Transparency = 0.5, OutlineTransparency = 1}
+    },
+    Objects = {},
+    Overrides = {}
+}
+ESPlib.__index = ESPlib
+
 function ESPlib:GetObject(Object)
     return self.Objects[Object]
 end
