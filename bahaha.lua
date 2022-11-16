@@ -50,7 +50,7 @@ local Framework = {}; Framework.__index = Framework; do
 end
 
 -- // Main \\ --
-local ESPlib; ESPlib = {
+local ESP; ESP = {
     Settings = {
         Enabled = true,
         Bold_Text = false,
@@ -73,31 +73,31 @@ local ESPlib; ESPlib = {
     Objects = {},
     Overrides = {}
 }
-ESPlib.__index = ESPlib
+ESP.__index = ESP
 
-function ESPlib:GetObject(Object)
+function ESP:GetObject(Object)
     return self.Objects[Object]
 end
 
-function ESPlib:Toggle(State)
+function ESP:Toggle(State)
     self.Settings.Enabled = State
 end
 
-function ESPlib:Get_Team(Player)
+function ESP:Get_Team(Player)
     if self.Overrides.Get_Team ~= nil then
         return self.Overrides.Get_Team(Player)
     end
     return Player.Team
 end
 
-function ESPlib:Get_Character(Player)
-    if ESPlib.Overrides.Get_Character ~= nil then
-        return ESPlib.Overrides.Get_Character(Player)
+function ESP:Get_Character(Player)
+    if ESP.Overrides.Get_Character ~= nil then
+        return ESP.Overrides.Get_Character(Player)
     end
     return Player.Character
 end
 
-function ESPlib:Get_Tool(Player)
+function ESP:Get_Tool(Player)
     if self.Overrides.Get_Tool ~= nil then
         return self.Overrides.Get_Tool(Player)
     end
@@ -111,7 +111,7 @@ function ESPlib:Get_Tool(Player)
     return "Empty"
 end
 
-function ESPlib:Get_Health(Player)
+function ESP:Get_Health(Player)
     if self.Overrides.Get_Character ~= nil then
         return self.Overrides.Get_Health(Player)
     end
@@ -143,7 +143,7 @@ local function Pass_Through(From, Target, RaycastParams_, Ignore_Table)
     end
 end
 
-function ESPlib:Check_Visible(Target, FromHead)
+function ESP:Check_Visible(Target, FromHead)
     if self.Overrides.Check_Visible ~= nil then
         return self.Overrides.Check_Visible(Player)
     end
@@ -163,7 +163,7 @@ function ESPlib:Check_Visible(Target, FromHead)
         local Instance_ = Result.Instance
         if Instance_:IsDescendantOf(Target.Parent) then
             return true
-        elseif ESPlib.Settings.Improved_Visible_Check and Instance_.CanCollide == false or Instance_.Transparency == 1 then
+        elseif ESP.Settings.Improved_Visible_Check and Instance_.CanCollide == false or Instance_.Transparency == 1 then
             if Instance_.Name ~= "Head" and Instance_.Name ~= "HumanoidRootPart" then
                 tableinsert(Ignore_Table, Instance_)
                 Pass_Through(Result.Position, Target, RaycastParams_, Ignore_Table)
@@ -190,7 +190,7 @@ do -- // Player Metatable \\ --
             Component:Remove()
             self.Components[Index] = nil
         end
-        ESPlib.Objects[self.Player] = nil
+        ESP.Objects[self.Player] = nil
     end
     function Player_Metatable:Update()
         local Box, BoxFill, Box_Outline = self.Components.Box, self.Components.BoxFill, self.Components.Box_Outline
@@ -203,7 +203,7 @@ do -- // Player Metatable \\ --
         if Box == nil or BoxFill == nil or Box_Outline == nil or Healthbar == nil or Healthbar_Outline == nil or Name == nil or NameBold == nil or Distance == nil or DistanceBold == nil or Tool == nil or ToolBold == nil or Health == nil or HealthBold == nil or Chams == nil then
             self:Destroy()
         end
-        local Character = ESPlib:Get_Character(self.Player)
+        local Character = ESP:Get_Character(self.Player)
         if Character ~= nil then
             local Head, HumanoidRootPart, Humanoid = Character:FindFirstChild("Head"), Character:FindFirstChild("HumanoidRootPart"), Character:FindFirstChildOfClass("Humanoid")
             if not Humanoid then
@@ -225,7 +225,7 @@ do -- // Player Metatable \\ --
                 end
                 return
             end
-            local Current_Health, Health_Maximum = ESPlib:Get_Health(self.Player), Humanoid.MaxHealth
+            local Current_Health, Health_Maximum = ESP:Get_Health(self.Player), Humanoid.MaxHealth
             if Head and HumanoidRootPart and Current_Health > 0 then
                 local Dimensions = Framework:Get_Bounding_Vectors(HumanoidRootPart)
                 local HRP_Position, On_Screen = Camera:WorldToViewportPoint(HumanoidRootPart.Position)
@@ -255,16 +255,16 @@ do -- // Player Metatable \\ --
                 local Box_Position = Framework:Round_V2(Vector2.new(X_Maximal + Box_Size.X / X_Minimal, Y_Maximal + Box_Size.Y / Y_Minimal))
                 local Good = false
 
-                if ESPlib.Settings.Team_Check then
-                    if ESPlib:Get_Team(self.Player) ~= ESPlib:Get_Team(LocalPlayer) then
+                if ESP.Settings.Team_Check then
+                    if ESP:Get_Team(self.Player) ~= ESP:Get_Team(LocalPlayer) then
                         Good = true
                     end
                 else
                     Good = true
                 end
 
-                if ESPlib.Settings.Enabled and On_Screen and Meter_Distance < ESPlib.Settings.Maximal_Distance and Good then
-                    local Highlight_Settings = ESPlib.Settings.Highlight
+                if ESP.Settings.Enabled and On_Screen and Meter_Distance < ESP.Settings.Maximal_Distance and Good then
+                    local Highlight_Settings = ESP.Settings.Highlight
                     local Is_Highlighted = Highlight_Settings.Enabled and Highlight_Settings.Target == Character or false
                     local Highlight_Color = Highlight_Settings.Color
 
@@ -277,14 +277,14 @@ do -- // Player Metatable \\ --
 
                     -- // Box \\ --
                     
-                    local Box_Settings = ESPlib.Settings.Box
+                    local Box_Settings = ESP.Settings.Box
                     Box.Size = Box_Size
                     Box.Position = Box_Position
                     Box.Color = Is_Highlighted and Highlight_Color or Box_Settings.Color
                     Box.Transparency = Framework:Drawing_Transparency(Box_Settings.Transparency)
                     Box.Visible = Box_Settings.Enabled
 
-                    local Box_Fill_Settings = ESPlib.Settings.BoxFill
+                    local Box_Fill_Settings = ESP.Settings.BoxFill
                     BoxFill.Size = Box_Size
                     BoxFill.Position = Box_Position
                     BoxFill.Color = Is_Highlighted and Highlight_Color or Box_Fill_Settings.Color
@@ -292,7 +292,7 @@ do -- // Player Metatable \\ --
                     BoxFill.Visible = Box_Fill_Settings.Enabled
                     BoxFill.Filled = true
 
-                    local Box_Outline_Settings = ESPlib.Settings.Box_Outline
+                    local Box_Outline_Settings = ESP.Settings.Box_Outline
                     Box_Outline.Size = Box_Size
                     Box_Outline.Position = Box_Position
                     Box_Outline.Color = Box_Outline_Settings.Color
@@ -315,7 +315,7 @@ do -- // Player Metatable \\ --
                     local green = Color3.fromRGB(0, 255, 0)
                     local red = Color3.fromRGB(255, 0, 0)
 
-                    local Healthbar_Settings = ESPlib.Settings.Healthbar
+                    local Healthbar_Settings = ESP.Settings.Healthbar
                     local Healthbar_Enabled = Healthbar_Settings.Enabled
                     local Healthbar_Position = Healthbar_Settings.Position
                     local Health_Lerp_Color = red:Lerp(green, Current_Health / Health_Maximum)
@@ -350,7 +350,7 @@ do -- // Player Metatable \\ --
 
                     -- // Name \\ --
                     
-                    local Name_Settings = ESPlib.Settings.Name
+                    local Name_Settings = ESP.Settings.Name
                     local Name_Position = Name_Settings.Position
                     if Name_Position == "Top" then 
                         Name.Position = Vector2.new(X_Maximal + Box_Size.X / 2, Box_Position.Y) - Vector2.new(0, Name.TextBounds.Y - Box_Size.Y + Top_Offset) 
@@ -381,11 +381,11 @@ do -- // Player Metatable \\ --
                     NameBold.OutlineColor = Name_Settings.OutlineColor
                     NameBold.Transparency = Framework:Drawing_Transparency(Name_Settings.Transparency)
                     NameBold.Position = Name.Position + Vector2.new(1, 0)
-                    NameBold.Visible = Name.Visible and ESPlib.Settings.Bold_Text
+                    NameBold.Visible = Name.Visible and ESP.Settings.Bold_Text
 
                     -- // Distance \\ --
                     
-                    local Distance_Settings = ESPlib.Settings.Distance
+                    local Distance_Settings = ESP.Settings.Distance
                     local Distance_Position = Distance_Settings.Position
                     if Distance_Position == "Top" then 
                         Distance.Position = Vector2.new(X_Maximal + Box_Size.X / 2, Box_Position.Y) - Vector2.new(0, Distance.TextBounds.Y - Box_Size.Y + Top_Offset) 
@@ -418,11 +418,11 @@ do -- // Player Metatable \\ --
                     DistanceBold.OutlineColor = Distance_Settings.OutlineColor
                     DistanceBold.Transparency = Framework:Drawing_Transparency(Distance_Settings.Transparency)
                     DistanceBold.Position = Distance.Position + Vector2.new(1, 0)
-                    DistanceBold.Visible = Distance.Visible and ESPlib.Settings.Bold_Text
+                    DistanceBold.Visible = Distance.Visible and ESP.Settings.Bold_Text
 
                     -- // Tool \\ --
                     
-                    local Tool_Settings = ESPlib.Settings.Tool
+                    local Tool_Settings = ESP.Settings.Tool
                     local Tool_Position = Tool_Settings.Position
                     if Tool_Position == "Top" then 
                         Tool.Position = Vector2.new(X_Maximal + Box_Size.X / 2, Box_Position.Y) - Vector2.new(0, Tool.TextBounds.Y - Box_Size.Y + Top_Offset) 
@@ -445,21 +445,21 @@ do -- // Player Metatable \\ --
                         end
                         Right_Offset = Right_Offset + 10
                     end
-                    Tool.Text = ESPlib:Get_Tool(self.Player)
+                    Tool.Text = ESP:Get_Tool(self.Player)
                     Tool.Color = Is_Highlighted and Highlight_Color or Tool_Settings.Color
                     Tool.OutlineColor = Tool_Settings.OutlineColor
                     Tool.Transparency = Framework:Drawing_Transparency(Tool_Settings.Transparency)
                     Tool.Visible = Tool_Settings.Enabled
-                    ToolBold.Text = ESPlib:Get_Tool(self.Player)
+                    ToolBold.Text = ESP:Get_Tool(self.Player)
                     ToolBold.Color = Is_Highlighted and Highlight_Color or Tool_Settings.Color
                     ToolBold.OutlineColor = Tool_Settings.OutlineColor
                     ToolBold.Transparency = Framework:Drawing_Transparency(Tool_Settings.Transparency)
                     ToolBold.Position = Tool.Position + Vector2.new(1, 0)
-                    ToolBold.Visible = Tool.Visible and ESPlib.Settings.Bold_Text
+                    ToolBold.Visible = Tool.Visible and ESP.Settings.Bold_Text
 
                     -- // Health \\ --
                     
-                    local Health_Settings = ESPlib.Settings.Health
+                    local Health_Settings = ESP.Settings.Health
                     local Health_Position = Health_Settings.Position
                     if Health_Position == "Top" then 
                         Health.Position = Vector2.new(X_Maximal + Box_Size.X / 2, Box_Position.Y) - Vector2.new(0, Health.TextBounds.Y - Box_Size.Y + Top_Offset) 
@@ -492,14 +492,14 @@ do -- // Player Metatable \\ --
                     HealthBold.OutlineColor = Health_Settings.OutlineColor
                     HealthBold.Transparency = Framework:Drawing_Transparency(Health_Settings.Transparency)
                     HealthBold.Position = Health.Position + Vector2.new(1, 0)
-                    HealthBold.Visible = Health.Visible and ESPlib.Settings.Bold_Text
+                    HealthBold.Visible = Health.Visible and ESP.Settings.Bold_Text
 
                     -- // Chams \\ --
                     
                     if _G.chamsEnabled == true then
-                        local Chams_Settings = ESPlib.Settings.Chams
+                        local Chams_Settings = ESP.Settings.Chams
                         local Is_Visible = false
-                        if ESPlib:Check_Visible(Head) or ESPlib:Check_Visible(HumanoidRootPart) then
+                        if ESP:Check_Visible(Head) or ESP:Check_Visible(HumanoidRootPart) then
                             Is_Visible = true
                         end
                         local Chams_Enabled = Chams_Settings.Enabled
@@ -580,13 +580,13 @@ do  -- // Object Metatable \\ --
             Component:Remove()
             self.Components[Index] = nil
         end
-        ESPlib.Objects[self.Object] = nil
+        ESP.Objects[self.Object] = nil
     end
     function Object_Metatable:Update()
         local Name = self.Components.Name
         local Addition = self.Components.Addition
 
-        if not ESPlib.Settings.Objects_Enabled then
+        if not ESP.Settings.Objects_Enabled then
             Name.Visible = false
             Addition.Visible = false
             return
@@ -596,7 +596,7 @@ do  -- // Object Metatable \\ --
 
         local Meter_Distance = mathfloor(Vector.Z / 3.5714285714 + 0.5)
 
-        if On_Screen and Meter_Distance < ESPlib.Settings.Object_Maximal_Distance then
+        if On_Screen and Meter_Distance < ESP.Settings.Object_Maximal_Distance then
             -- // Name \\ --
             
             Name.Text = self.Name .. " [" .. mathfloor(Vector.Z / 3.5714285714 + 0.5) .. "m]"
@@ -618,10 +618,10 @@ do  -- // Object Metatable \\ --
         end
     end
 end
-do -- // ESPlib Functions \\ --
-    function ESPlib:Player(Instance, Data)
+do -- // ESP Functions \\ --
+    function ESP:Player(Instance, Data)
         if Instance == nil then
-            return warn("error: function ESPlib.Player argument #1 expected Player, got nil")
+            return warn("error: function ESP.Player argument #1 expected Player, got nil")
         end
         if Data == nil or type(Data) ~= "table" then
             Data = {
@@ -654,9 +654,9 @@ do -- // ESPlib Functions \\ --
         self.Objects[Instance] = Object
         return Object
     end
-    function ESPlib:Object(Instance, Data)
+    function ESP:Object(Instance, Data)
         if Data == nil or type(Data) ~= "table" then
-            return warn("error: function ESPlib.Object argument #2 expected table, got nil")
+            return warn("error: function ESP.Object argument #2 expected table, got nil")
         end
         local Addition = Data.Addition or Data.addition or Data.add or Data.Add or {}
         if Addition.Text == nil then
@@ -695,16 +695,11 @@ end
 
 local Connection = RunService.RenderStepped:Connect(function()
     -- // Object Updating \\ --
-    for i, Object in pairs(ESPlib.Objects) do
+    for i, Object in pairs(ESP.Objects) do
         Object:Update()
     end
-    return ESPlib, Connection, Framework
 end)
 
--- // Add ESP \\ --
-
-for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-    ESPlib:Player(v)
-end
+return ESP, Connection, Framework
 
 -- // End \\ --
