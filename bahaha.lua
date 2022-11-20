@@ -68,7 +68,7 @@ local ESP; ESP = {
         Distance = {Enabled = false, Position = "Bottom", Color = Color3.new(1, 1, 1), Transparency = 0, OutlineColor = Color3.new(0, 0, 0)},
         Tool = {Enabled = false, Position = "Bottom", Color = Color3.new(1, 1, 1), Transparency = 0, OutlineColor = Color3.new(0, 0, 0)},
         Health = {Enabled = false, Position = "Left", Transparency = 0, OutlineColor = Color3.new(0, 0, 0)},
-        Chams = {Enabled = false, Color = Color3.fromRGB(123, 0, 189), Mode = "AlwaysOnTop", OutlineColor = Color3.fromRGB(123, 0, 189), Transparency = 0.5, OutlineTransparency = 1}
+        Chams = {Enabled = false, Color = Color3.fromRGB(123, 0, 189), VisColor = Color3.fromRGB(255, 255, 255), Mode = "AlwaysOnTop", OutlineColor = Color3.fromRGB(123, 0, 189), Transparency = 0.5, OutlineTransparency = 1}
     },
     Objects = {},
     Overrides = {}
@@ -506,7 +506,7 @@ do -- // Player Metatable \\ --
                         Chams.Enabled = Chams_Enabled
                         Chams.Adornee = Chams_Enabled and Character or nil
                         if Chams_Enabled then
-                            Chams.FillColor = Chams_Settings.Mode == "Visible" and Is_Visible and Color3.new(0, 1, 0) or Chams_Settings.Color
+                            Chams.FillColor = Chams_Settings.Mode == "Visible" and Is_Visible and Chams_Settings.VisColor or Chams_Settings.Color
                             Chams.OutlineColor = Chams_Settings.OutlineColor
                             Chams.FillTransparency = Chams_Settings.Transparency
                             Chams.OutlineTransparency = Chams_Settings.OutlineTransparency
